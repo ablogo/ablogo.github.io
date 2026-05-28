@@ -1,12 +1,13 @@
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import './resume.css';
 
 interface SkillGroup {
+  id: number;
   category: string;
   items: string[];
   icon: React.ReactNode;
-}
+};
 
 interface Experience {
   id: number;
@@ -15,7 +16,7 @@ interface Experience {
   period: string;
   description: string;
   link: string;
-}
+};
 
 type themeProps = {
   is_light: boolean,
@@ -24,23 +25,27 @@ type themeProps = {
 
 const SKILLS: SkillGroup[] = [
   {
+    id: 1,
     category: 'Languages',
     items: ['Español', 'English'],
     icon: <path strokeLinecap="round" strokeLinejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
   },
   {
+    id: 2,
     category: 'Programming Languages',
-    items: ['C#', 'JavaScript', 'Python', 'TypeScript', 'SQL'],
+    items: ['C#', 'Golang', 'JavaScript', 'Python', 'SQL', 'TypeScript'],
     icon: <path strokeLinecap="round" strokeLinejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
   },
   {
+    id: 3,
     category: 'Technologies / Tools',
-    items: ['.NET', 'React', 'Next.js', 'GitHub', 'GitHub Actions', 'WebSockets', 'MQTT', 'gRPC', 'AWS', 'Kubernetes', 'Docker', 'MongoDB', 'NoSQL', 'SQL Server', 'PostgreSQL', 'Some ORMs', 'FastAPI', 'Flask', 'HTML', 'CSS'],
+    items: ['.NET', 'gRPC', 'AWS', 'Kubernetes', 'Docker', 'WebSockets', 'MQTT', 'React', 'Next.js', 'GitHub', 'GitHub Actions', 'MongoDB', 'NoSQL', 'SQL Server', 'PostgreSQL', 'Some ORMs', 'FastAPI', 'Flask', 'HTML', 'CSS', 'And more...'],
     icon: <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
   },
   {
+    id: 4,
     category: 'WIP',
-    items: ['OpenCV', /*'日本語',*/ 'Golang'],
+    items: ['OpenCV', /*'日本語',*/],
     icon: <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
   },
 ];
@@ -64,7 +69,7 @@ const EXPERIENCES: Experience[] = [
   },
   {
     id: 3,
-    role: 'Senior Full Stack Developer',
+    role: 'Senior Software Developer',
     company: 'Finerio Connect',
     period: '2018 - 2021',
     description: '',
@@ -72,7 +77,7 @@ const EXPERIENCES: Experience[] = [
   },
   {
     id: 4,
-    role: 'Full Stack Developer',
+    role: 'Senior Full Stack Developer',
     company: 'Atlantia Search',
     period: '2017 - 2018',
     description: '',
@@ -80,7 +85,7 @@ const EXPERIENCES: Experience[] = [
   }
 ];
 
-const about: string = `Programming is one of my hobbies, so I enjoy it.
+const about: string = `I really enjoy programming, so besides being my profession, it's become one of my hobbies.
 I have been developing systems for over 10 years, as well as being part of and leading engineering teams.`;
 
 const Portfolio: React.FC = () => {
@@ -88,7 +93,7 @@ const Portfolio: React.FC = () => {
 
   useEffect(() => {
     let savedTheme = (localStorage.getItem('isLight'));
-    if (savedTheme == "true") {
+    if (savedTheme == "true" || savedTheme == null) {
       setIsLight(true);
     }
     else {
@@ -129,10 +134,10 @@ const Portfolio: React.FC = () => {
 
                 <div className='space-y3'>
                   <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Abraham Lopez</h1>
-                  <h2 className="text-lg md:text-xl text-gray-600 dark:text-gray-400">Computer Engineer</h2>
+                  <h4 className="text-lg md:text-xl text-gray-600 dark:text-gray-400">Bachelor's Degree in Computer Engineer</h4>
                   <div className="h-px w-16 bg-gray-200 dark:bg-gray-700 mx-auto my-4"></div>
                   <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 max-w-sm mx-auto leading-relaxed">
-                    Programming is one of my hobbies, I have been building systems for over 10 years
+                    I really enjoy programming, I have been building systems for over 10 years and counting.
                   </p>
                 </div>
 
@@ -141,7 +146,7 @@ const Portfolio: React.FC = () => {
                     <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                     </svg>
-                    <a href="mailto:john.doe@example.com" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">ablopego@gmail.com</a>
+                    <a href="mailto:ablopego@gmail.com" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">ablopego@gmail.com</a>
                   </div>
                   <div className="flex items-center justify-center space-x-2">
                     <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -174,13 +179,15 @@ const Portfolio: React.FC = () => {
               <div className="py-6 bg-white dark:bg-gray-900 px-6">
                 <div className="space-y-4 max-w-2xl mx-auto">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-center md:text-left">Core Skills</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-center md:text-left">Skills</h3>
                     <div className="h-px w-full bg-gray-200 dark:bg-gray-700 mt-2">
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {SKILLS && SKILLS.map(item => (
                       <SkillCard
+                        key={item.id}
+                        id={item.id}
                         category={item.category}
                         items={item.items}
                         icon={item.icon}
@@ -194,13 +201,14 @@ const Portfolio: React.FC = () => {
               <div className="py-6 bg-white dark:bg-gray-900 px-6">
                 <div className="space-y-4 max-w-2xl mx-auto">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-center md:text-left">Experience</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-center md:text-left">Work Experience</h3>
                     <div className="h-px w-full bg-gray-200 dark:bg-gray-700 mt-2"></div>
                   </div>
                   <div className="space-y-5">
                     {EXPERIENCES && EXPERIENCES.map(item => (
                       <ExperienceCard
                         id={item.id}
+                        key={item.id}
                         role={item.role}
                         description={item.description}
                         period={item.period}
@@ -222,7 +230,7 @@ const Portfolio: React.FC = () => {
               <div className="py-6 bg-white dark:bg-gray-900 px-6">
                 <div className="space-y-4 max-w-2xl mx-auto">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-center md:text-left">About</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-center md:text-left">About me</h3>
                     <div className="h-px w-full bg-gray-200 dark:bg-gray-700 mt-2">
                     </div>
                   </div>
@@ -256,7 +264,7 @@ const SkillCard: React.FC<SkillGroup> = ({ category, items, icon }) => (
     </div>
     <div className="flex flex-wrap gap-1.5">
       {items && items.map(x => (
-        <span className="px-2.5 py-1 text-sm bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full ring-1 ring-gray-200 dark:ring-gray-700">{x}</span>
+        <span key={x} className="px-2.5 py-1 text-sm bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full ring-1 ring-gray-200 dark:ring-gray-700">{x}</span>
       ))}
     </div>
   </div>
